@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+    
+<SCRIPT LANGUAGE="javascript">
+
+var locate = window.location;
+var text=String(locate);
+var theleft = text.indexOf("?") + 1;
+var theright = text.indexOf("&");
+var fteam=text.substring(theleft,theright);
+console.log(fteam);
+var point = text.indexOf("&");
+var steam=text.substring(point+1,text.length-1);
+var return_data="",x=0;
+     function teamdisplay(teamname){
+        var res;
+        if(teamname==steam)
+            x=1;
+        res="teamname"+"="+teamname+"&";
+        var xhttp= new XMLHttpRequest();
+        var url= "disps.py"
+        xhttp.open("POST",url,"true");
+        xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        xhttp.onreadystatechange = function()
+        {
+            if(xhttp.readyState == 4 && xhttp.status == 200)
+            {
+               
+               return_data=JSON.parse(xhttp.responseText);
+               console.log(return_data);
+               var html="",wk="",bat="",all="",bow="";
+               for(var id=0;id<return_data.length;id++){
+               	 for(var i=0;i<return_data[id].length;i++){
+                   html='<br><button style="width:100px; height:40px; background-color:green; margin-top:0px;" :onhover="box-shadow:5px 10px;" onclick="add(this)" id="player'+x+''+id+''+i+''+return_data[id][i][2]+'">'+return_data[id][i][0]+' : '+return_data[id][i][1]+'</button>'
+                   console.log(html,return_data[id][i][2]);
+                   if(return_data[id][i][2]==0){
+                       wk=document.getElementById("wk"+x);
+                       wk.innerHTML=wk.innerHTML+html;
+                   }      
+                   if(return_data[id][i][2]==1){
+                       bat=document.getElementById("bat"+x);
+                       bat.innerHTML=bat.innerHTML+html;
+                   } 
+                   if(return_data[id][i][2]==2){
+                       all=document.getElementById("all"+x);
+                       all.innerHTML=all.innerHTML+html;
+                   } 
+                   if(return_data[id][i][2]==3){
+                       bow=document.getElementById("bow"+x);
+                       bow.innerHTML=bow.innerHTML+html;
+                   } 
+            }}
+
+            if(teamname==fteam){
+                var qw=document.getElementById("vs");
+                qw.style.display="block";
+                var w=document.getElementById("sub");
+                w.style.display="block";}
+            }
+            
+        }
+          xhttp.send(res); 
+          }
+     function teamnames(){
+              var a=document.getElementById("team1")
+              var b=document.getElementById("team2")
+              a.innerText=fteam;
+              b.innerText=steam;
+              a.setAttribute("onclick","teamdisplay(fteam)");
+              b.setAttribute("onclick","teamdisplay(steam)");
+              var c=document.getElementById("teamndisp");
+              c.style.display="flex";
+              c=document.getElementById("but");
+              c.style.display="none";
+     }
+     function add(idname){
+              var plac=document.getElementById("fin"); 
+              var z=idname.id;
+              plac.style.display="block";
+     	      var c=document.getElementById(z);
+     	      console.log(c);
+              var b=document.getElementById(z).textContent;
+              var pr=c.parentNode.id;
+              var place=document.getElementById("finteam");
+              c.parentNode.removeChild(c);
+              var html='<button style="width:100px; height:40px; background-color:red; margin-top:10px; " onclick="delet(this,'+pr+')"  id="'+z+'">'+b+'</button>';
+              place.innerHTML=place.innerHTML+html;
+              console.log(html);
+
+     } 	
+     function delet(idname,parentid){
+     	      var z=idname.id;
+     	      var x=parentid.id;
+     	      console.log(z,x);
+              var e=document.getElementById(z);
+              var b=document.getElementById(z).textContent;
+              var a=document.getElementById("finteam");
+              var d=document.getElementById(x);
+              a.removeChild(e);
+              var html='<button style="width:100px; height:40px; background-color:green; margin-top:10px; " onclick="add(this)"  id="'+z+'">'+b+'</button>';
+              d.innerHTML=d.innerHTML+html;
+     }
+     function findisplay(){
+     	      var a=document.getElementById("finteam");
+     	      var b=a.childNodes.length;
+     	      var str="",str1="",str2="";
+     	      var res="count"+"="+b+"&";
+     	      for(var i=0;i<b;i++){
+                var c=a.childNodes[i].id;
+                var d=a.childNodes[i].innerHTML;
+                str=c.toString();
+                str1=d.toString();
+                if(str[6]==0)
+                	str1=str1+"0";
+                if(str[6]==1)
+                	str1=str1+"1";
+                str2="details"+i;
+                str1=str1+str[9];
+                res=res+str2+"="+str1+"&";
+     	      }
+     	      console.log(res);
+     	      var xhttp=new XMLHttpRequest();
+              var url="fin3.py";
+              xhttp.open("POST",url,"true");
+              xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded"); 	      	
+              xhttp.onreadystatechange=function(){
+              	if(xhttp.readyState==4 && xhttp.status==200){
+                     var a=document.getElementById("finalteam");
+                     var return_data=JSON.parse(xhttp.responseText);
+                     var html=""
+                     for(var i=0;i<return_data.length;i=i+11){
+                        html=html+'<div id="arjun'+i+'" style="display:flex; border:2px solid red; border-radius:10px; float:left;   width:200px; margin-left:100px; "><div ><div style="margin-left:40px;">'+return_data[i]+'</div><div >'+return_data[i+1]+'  '+return_data[i+2]+'  '+return_data[i+3]+'</div><div>'+return_data[i+4]+' '+return_data[i+5]+'  '+return_data[i+6]+'</div><div>'+return_data[i+7]+' '+return_data[i+8]+'</div><div>'+return_data[i+9]+' '+return_data[i+10]+'</div></div><div><button style="margin-top:40px; margin-left10px; " onclick="zoom(this)" id="add'+i+'" >add</button></div></div>'
+                     }
+                     a.innerHTML=html;    
+              	}
+              }
+              xhttp.send(res);
+     }
+     function zoom(ids){
+     	var x=ids.id;
+     	var c=ids.parentNode;
+        var d=c.parentNode.id;
+     	var a=document.getElementById(d);
+     	var btn = document.getElementById(x);
+     	btn.onclick = function() {a.style.display="block";}
+     	window.onclick = function(event) {
+     		if(event.target==a) {
+     			a.style.display="none";
+     		}
+     	}
+     }
+</SCRIPT> 
+</head>
+<body >
+      <p  id="divs">
+      	
+      </p>
+      <div  id="teamndisp" style="display:none; margin-left: 100px; height: 30px;">
+      	<button id="team1" style=" width: 200px; height: 50px; border-radius: 15px; box-shadow: 2px 4px lightblue; "></button>
+      
+      <button id="team2" style="width: 200px; height: 50px; border-radius: 15px; margin-left: 700px; box-shadow: 2px 4px lightblue;"></button>
+      </div>
+      <div style="display: flex; margin-top: 30px;">
+      <div id="firstteam"  style=" display: flex; margin-left: 40px; ">
+      	<div id="wk0">wk</div><br>
+        <div id="bat0">bat</div><br>
+        <div id="all0">all</div><br>
+        <div id="bow0">bowl</div><br>
+      </div>
+      <h1 style="margin-left: 80px; margin-top: 200px; font-size: 100px;  display: none;" id="vs">vs</h1>
+      <div id="secondteam" style="display:flex; margin-left: 80px;  ">
+      	<div id="wk1">wk</div>
+        <div id="bat1">bat</div>
+        <div id="all1">all</div>
+        <div id="bow1">bow</div>
+      </div>
+      </div>
+      <div id="fin" style="display:none;" >
+      <form><fieldset><legend>final team</legend>
+      	<div id="finteam" style="display:flex;" ></div>
+      </fieldset></form></div>
+      <input style="display: none; padding: 20px 40px; border-radius: 10px; background-color: #00FFFF; margin-left: 580px; margin-top: 50px; " id="sub" type="submit" onclick="findisplay()" value="submit">
+      <div id="finalteam" style="margin-top: 30px;" ></div>
+      <script type="text/javascript">
+      
+var html='<button onclick="teamnames()" id="but" style="padding:5px 10px; margin-left:500px; margin-top:50px; text-shadow:2px 2px 5px red; font-size:50px; box-shadow:2px 4px grey; background: linear-gradient(to bottom,rgba(255,0,0,1),rgba(255,0,0,0.3));" >'+fteam+'  vs  '+steam+'</button>'
+document.getElementById("divs").innerHTML=html;
+      </script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>create</title>
+	<link rel="stylesheet" type="text/css" href="ha.css">
+	<link rel="stylesheet" type="text/css" href="team2.css">
+	<link rel="stylesheet" type="text/css" href="player.css">
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style type="text/css">
+		.color {
+          background: linear-gradient(to right,#2193b0,#6dd5ed)
+
+		}
+	</style>
+	
+	
+	
+	
+	
+	
+	<link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+	<div style="background: linear-gradient(to right,#0575E6, #00F260);
+display: flex;
+flex-flow: column wrap;
+height:120px;
+justify-content: center;
+align-items: center;
+font-style: sans-serif;" id="createTeam">
+<h1 style="color:white;">Team name </h1>
+<input type="text"  style="text-align: center;"id = "inputField" onfocus="this.select();" name="teamname">
+
+</div>	
+<ul class="navigation">
+
+  <li onclick="myFunction();"><a href="#" >Create Team</a></li>
+  <li onclick="updateTeam();"><a href="#">Update Team</a></li>
+  <li onclick="viewking();"><a href="#">View Teams</a></li>
+  
+</ul>
+<div id="main_view" style="display:flex;justify-content: center;margin-top: 30px ">
+<div id="viewer">
+	</div>
+</div>
+<div id="main_box" class="limiter" style="display:none;">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form class="login100-form validate-form">
+					<span  id="team_main" class="login100-form-title p-b-26">
+						Team Name
+					</span>
+					<div id="exists" style="color:black;align-items: center;display:flex;justify-content: center;">
+						
+					</div>
+                    <div id="open">
+					<div  class="wrap-input100 validate-input" style="margin-top: 60px;">
+						<input class="input100 inpText" type="text" name="player" placeholder="player name">
+						<span class="focus-input100" ></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" >
+						
+							
+						
+						<input class="input100 inpText" type="number" name="points" placeholder="points">
+						<span class="focus-input100" ></span>
+					</div>
+					<div id="ty" class="change_section">
+					<select id="index" class="dropdown"  data-chooser="type" style="margin-left: 60px;width: 150px;height:25px;" >
+						<option value="0">wicket keeper</option>
+						<option value="1">batsman</option>
+						<option value="2">All Rounder</option>
+						<option value="3">Bowler</option>
+					</select>
+				</div>
+
+					<div class="container-login100-form-btn" style="margin-top: 95px;">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn color" onclick="check(); return false;">
+								Add
+							</button>
+						</div>
+					</div>
+
+				</div>	
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	       
+
+
+
+
+<br>
+<div id="allplay">
+<div id="newplay" style="display:block;" ></div>
+</div>
+<script src="playerScripts3.js"></script>
+	<script src="updaters.js"></script>
+	<script src="creators.js"></script>
+	<script src="createTeams.js"></script>
+	<script src="viewteamss.js"></script>
+	<script src="file_delete.js"></script>
+
+</body>
+</html>

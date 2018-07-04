@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>my app</title>
+	<style type="text/css">
+		.selectteam{
+			width: auto;
+			height: 30px;
+			margin-top: 15px;
+      margin-left: 20px;
+      padding:0px 50px 5px 50px;
+      border:0px solid lightyellow;
+      border-bottom-width: 2px;
+      border-radius: 3px;
+      background: transparent;
+      font-family: cursive;
+      box-shadow: 3px 3px red;
+		}
+    a:link {
+    color: red;
+    }
+    #idsty{
+      background-color: red;
+    }
+     input[type="text"],[type="password"]{
+             border-top-width: 0px;
+             border-right-width: 0px;
+             border-left-width: 0px;
+             border-bottom: : 5px solid black;
+             background: transparent;
+             margin-top: 10px;
+             margin-left: 10px;
+             color: rgba(135,206,250,0.8);
+             border-radius: 5px;  
+        }
+        th{
+          padding-top: 20px
+        }
+      #teamsubmit{ 
+        margin-left: 70px;
+        border: 5px solid rgba(135,206,250,0.8);
+        border-radius: 15px; 
+        border-width: 50px;
+        border-top-width: 8px;
+        border-bottom-width: 8px;
+        background-color: rgb(135,206,250);
+        text-decoration: none;
+        font-size: 20px;
+      }
+      #login{
+        margin-left: 250px;
+        margin-top: 200px;
+        background-color: rgba(99, 243, 222,0.1);
+        height: 320px;
+        width: 320px;
+        border:0px;
+        border-radius: 10px;
+      }
+      a{
+        color: rgb(240,0,0);
+      }
+      a:hover{
+        color:rgba(248, 150, 131,0.7);
+      }
+      #logimg{
+        width: 90px;
+        margin-left:160px;
+        transform: translate(-50%,-50%);
+        border: 1px solid black;
+        border-radius: 40px;
+        background-color: lightblue;
+      }
+	</style>
+</head>
+<body style="background: url(cricf.png); ">
+      <div style="display: block; color: rgb(240,0,0);">
+      	<a href="main.html" style="display: inline-flex; text-decoration: none; margin-top: 7px; "><h1>MYDREAM11</h1></a>
+        <a href="#" onclick=displog() style="margin-left: 700px; margin-top: 25px;  background-color: transparent; border: 0px; font-size: 30px; text-decoration: none;">LOGIN</a>
+      	<a href="#" onclick=dispmatch() style="margin-left: 80px; margin-top: 25px;  background-color: transparent; border: 0px; font-size: 30px; text-decoration: none;">MATCH</a>
+      </div >
+      <form  id="newhtml" method="POST" action="http://localhost/web/matchdisp.html?" method="GET" onsubmit="SetData()">
+      <div id="ifr" style="display: none; ">
+      <div  style="display: flex; margin-top: 20px; border-radius: 10px; background-color: rgb(174,197,160); height: 70px; padding-top: 0px;
+      width: 630px; margin-left: 70px; ">
+      <select class="selectteam">
+      </select>
+      <h1 style="margin-left: 35px; margin-top: 0px; font-family: cursive; font-size: 60px;">vs</h1>
+      <select style="margin-left: 20px;" class="selectteam">
+      </select>
+      <input type="submit" name="submit" id="subtrans" style="width:70px; height: 20px; text-align: center; padding: 3px 10px; border-radius: 5px; background: lightyellow; margin-top: 20px; margin-left: 20px; text-decoration: none;" />
+      </div>
+    </div>
+      </form>
+      <iframe src="/project/sudharsan/TeamCreateorv2.html" frameborder="0" height="700px" width="1010px;" style="display: none; background-color: red; margin-top: 80px; margin-left: 100px;"  id="iframe" name="fr" ></iframe>
+      <div id="login" style="display: none;">
+        <img src="Admin.png" id="logimg">
+        <form  target="fr">
+               <table style="margin-left: 20px;">
+                <tr>
+                    <th>username:</th>
+                    <td ><input type="text" name="username" id="user" placeholder="enterusername" size="20"></td>
+                </tr>
+                <tr >
+                    <th>password:</th>
+                    <td><input type="password" name="password" id="pass" placeholder="enter password" size="20"></td>
+                </tr><tr></tr>
+                </table>
+                <br><br><br>
+                  <a href="#" id="teamsubmit" onclick="showadmin()">submit</a>
+      </form>
+      </div>
+	<script type="text/javascript">
+		              function showadmin(){
+                           var x=document.getElementById("user");
+                           var res;
+                           res=x.getAttribute("name")+"="+x.value+"&";
+                           x=document.getElementById("pass");
+                           var real=x.getAttribute("name")
+                           res=res+real+"="+x.value;
+                           var xhttp= new XMLHttpRequest();
+                           console.log(res);
+                           var url= "admin.py"
+                           xhttp.open("POST",url,"true");
+                           xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                           xhttp.onreadystatechange = function()
+                           {
+                            if(xhttp.readyState == 4 && xhttp.status == 200)
+                           {
+                               //perform action
+                               var return_data =JSON.parse( xhttp.responseText);
+                               if(return_data=="yes"){
+                                document.getElementById("iframe").style.display="block";
+                                document.getElementById("login").style.display="none";
+                                document.location.href="../sudharsan/TeamCreateorv2.html";
+                               }
+                               else{
+                                alert("login only for admin");
+                               }
+                           }
+                         }
+                         xhttp.send(res);
+                }
+                function displog(){
+                  var log=document.getElementById("login")
+                  if(log.style.display=="none")
+                    log.style.display="block";
+                  log=document.getElementById("ifr");
+                  if(log.style.display=="block")
+                    log.style.display="none";
+                }
+                 function dispmatch(){
+                  var select = document.getElementsByClassName('selectteam');
+                  var url="check.py";
+                  var xhttp=new XMLHttpRequest();
+                  xhttp.open("GET",url,"true");
+                  var option="";
+                  xhttp.onreadystatechange=function(){
+                    if(xhttp.readyState==4 && xhttp.status==200){
+                          var return_data=JSON.parse(xhttp.responseText);
+                          var select=document.getElementsByClassName("selectteam");
+                          for(var i=0;i<return_data.length;i++){
+                            var op='<option value="'+return_data[i]+'">'+return_data[i]+'</option>';
+                            select[0].innerHTML=select[0].innerHTML+op;
+                            select[1].innerHTML=select[1].innerHTML+op;
+                          }
+                    }
+                  }
+                  xhttp.send();
+                  var log=document.getElementById("ifr");
+                  if(log.style.display=="none")
+                    log.style.display="block";
+                  log=document.getElementById("login");
+                  if(log.style.display=="block")
+                    log.style.display="none";
+                  log=document.getElementById("iframe");
+                  if(log.style.display=="block")
+                    log.style.display="none";
+                }
+                function SetData(){
+                  var select = document.getElementsByClassName('selectteam');
+                  var agent_id="";
+                  for(var i=0;i<select.length;i++){
+                     agent_id =agent_id+select[i].options[select[i].selectedIndex].value+"&";
+                  }
+
+                  document.getElementById("newhtml").action = "http://localhost/project/malli/matchdisp.html?"+agent_id ; 
+  
+                }
+	</script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+.list_style {
+     display:flex;
+     list-style: none;
+     margin:0;
+     background:linear-gradient(to right ,#bc4e9c,#d66d46);
+       }
+
+      .main_container {
+        display: flex;
+        height:40px;
+      }
+
+      .main_con_items{
+        display:flex;
+        width:280px;
+        margin-left:5px;
+        margin-right: 5px;
+       
+
+      }
+      
+      .list_container {
+        padding:0;
+        margin:0;
+        display:inline-flex;
+
+       
+              }
+       .main_con_items p {
+        flex-grow: 1;
+        text-align: justify;
+        color:white;
+        cursor: pointer;
+
+       
+
+       }  
+
+
+       .main_con_items h4 {
+        
+       margin-right:  15px;
+       align-self: center;
+
+       }  
+
+       .list_level {
+        padding:5px;
+        margin: 0;
+       }
+    
+     .btn_style_delete{
+    
+      background:#ab2f80e3;
+      border:none;
+      color:white;
+      padding:1px 25px;
+      font-size: 14px;
+      letter-spacing: 1.1px;
+     }
+     .last_section {
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+
+
+     }
+
+     .change_section {
+      display:flex;
+      align-items: center;
+      margin:0;
+      padding:0;
+      flex-grow: 1;
+     }
+     
+      
+     
+
+     .btn_style_save{
+    
+      background:#4CAF50;
+      border:none;
+      color:white;
+      padding:1px 25px;
+      font-size: 14px;
+      letter-spacing: 1.1px;
+     }
+
+     .btn_style_cancel{
+    
+      background:tomato;
+      border:none;
+      color:white;
+      padding:1px 20px;
+      font-size: 12px;
+      letter-spacing: 1px;
+     }
+
+    
+     
+
+     .change_section input[type="text"]{
+      border:none;
+      background:transparent;
+      font-size: 16px;
+      padding:0;
+      margin:0;
+      height:39px;
+      outline: none;
+      
+
+         }
+
+         .dropdow{
+          
+      background:transparent;
+      border:none;
+      padding:0;
+      font-size: 16px;
+      margin:0;
+      height:39px;
+      outline: none;
+         }
